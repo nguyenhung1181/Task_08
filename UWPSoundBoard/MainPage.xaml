@@ -15,47 +15,33 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <MediaElement Name="MyMediaElenment" AutoPlay="True"/>
-
-        <TextBlock Name="CategoryTextBlock" Text="All Sounds" FontSize="24"/>
-
-        <GridView Grid.Row="1"
-                  Name="SoundFridView"
-                  SelectionMode="None"
-                  IsItemClickEnabled="True"
-                  ItemClick="SoundGridView_ItemClick">
-            <GridView.ItemTemplate>
-                <DataTemplate>
-                    <Image Name="MyImage" Height="112" Width="101"/>
-                </DataTemplate>
-            </GridView.ItemTemplate>
-        </GridView>
-
         <RelativePanel>
-            <Button Name="HamburgerButton"
-                    RelativePanel.AlignLeftWithPanel="True"
+            <Button Name="HamburgerButton" 
+                    RelativePanel.AlignLeftWithPanel="True" 
                     Click="HamburgerButton_Click"
-                    FontFamily="Segoe MDL2 Assets"
+                    FontFamily="Segoe MDL2 Assets" 
                     FontSize="20"
                     Height="45"
                     Width="45"
-                    Content="&#xE700;"
-                    />
+                    Content="&#xE700;"/>
 
-            <Button Name="BackButton"
+            <Button Name="BackButton" 
                     RelativePanel.RightOf="HamburgerButton"
                     Click="BackButton_Click"
                     FontFamily="Segoe MDL2 Assets"
+                    FontSize="20"
+                    Height="45"
+                    Width="45"                    
                     Content="&#xE0A6;"
                     />
-
-            <AutoSuggestBox Name="SearchAutoSuggestBox"
+            <AutoSuggestBox Name="SearchAutoSuggestBox" 
                             PlaceholderText="Search for sounds"
                             Width="200"
                             QueryIcon="Find"
                             TextChanged="SearchAutoSuggestBox_TextChanged"
                             QuerySubmitted="SearchAutoSuggestBox_QuerySubmitted"
-                            RelativePanel.AlignRightWithPanel="True"/>
+                            RelativePanel.AlignRightWithPanel="True">
+            </AutoSuggestBox>
         </RelativePanel>
 
         <SplitView Grid.Row="1" Name="MySplitView" 
@@ -70,15 +56,23 @@
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="data:MenuItem">
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="{x:Bind IconFile}" Height="45" Width="45" />
-                                <TextBlock Text="{x:Bind Category}" FontSize="18" Margin="10,0,0,0" />
+                                <Image Source="{x:Bind IconFile}" 
+                                       Height="35" 
+                                       Width="35"
+                                       Margin="-10,10,0,10"
+                                       />
+                                <TextBlock 
+                                    Text="{x:Bind Category}" 
+                                    FontSize="18" 
+                                    Margin="10,0,0,0" 
+                                    VerticalAlignment="Center" />
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
             </SplitView.Pane>
             <SplitView.Content>
-                <Grid>
+                <Grid Margin="20,20,0,0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
@@ -92,6 +86,9 @@
                               Name="SoundGridView"
                               SelectionMode="None"
                               IsItemClickEnabled="True"
+                              AllowDrop="True"
+                              Drop="SoundGridView_Drop"
+                              DragOver="SoundGridView_DragOver"
                               ItemsSource="{x:Bind Sounds}"
                               ItemClick="SoundGridView_ItemClick">
                         <GridView.ItemTemplate>
@@ -100,8 +97,6 @@
                             </DataTemplate>
                         </GridView.ItemTemplate>
                     </GridView>
-
-
 
                 </Grid>
             </SplitView.Content>
